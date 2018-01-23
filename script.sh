@@ -72,7 +72,7 @@ arguments_checker "$@"
 #check if dry run set
 if [[ -n $DRY_RUN ]]
 then
-    dry="echo : "
+    dry="echo dry_run: "
 fi
 
 #main functionality
