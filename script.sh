@@ -68,3 +68,17 @@ fi
 }
 
 arguments_checker "$@"
+
+#check if dry run set
+if [[ -n $DRY_RUN ]]
+then
+    dry="echo : "
+fi
+
+#main functionality
+# complete rest of the issues
+
+$dry uptime
+
+$dry uname -a
+
