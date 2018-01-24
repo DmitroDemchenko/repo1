@@ -8,7 +8,8 @@ cat<<EOF
 
  -p  --  look path to file;
  -d  --  look your name;
- -t  --  available MEM	
+ -t  --  available MEM
+ -------------------------------------------------	
  
 
 EOF
