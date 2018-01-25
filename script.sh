@@ -1,7 +1,6 @@
 #!/bin/bash
 
 
-
 #helper function
 helper() {
     cat <<EOF
