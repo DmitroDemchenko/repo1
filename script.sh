@@ -1,8 +1,5 @@
 #!/bin/bash
 
-## HELP ARGUMENT
-
-
 
 #helper function
 helper() {
