@@ -12,6 +12,22 @@ Script for orchestration ssh sessions to remote hosts
 EOF
 }
 
+hosts(){
+value=$1
+for ip in $(cat ${value})
+do 
+   dns=$(host $ip | awk '{print $5}')
+
+   echo "for ip: $ip such DNS:"
+     for name in $dns
+     do
+        red_logger ${name%%.}
+     done
+
+done
+
+}
+
 
 #logger function
 logger() {
@@ -69,16 +85,7 @@ exiter "-f <file path> missed"
 
 else 
 
-for ip in $(cat ${FILE_PATH})
-do
-   dns=$(host $ip | awk '{print $5}')
-   echo "for ip: $ip such DNS:"
-     for name in $dns
-     do
-	red_logger ${name%%.}
-     done
-	
-done               
+hosts $FILE_PATH               
                
 fi
 
@@ -89,12 +96,14 @@ arguments_checker "$@"
 #check if dry run set
 if [[ -n $DRY_RUN ]]
 then
-    dry="echo dry_run: "
+    dry="echo "
 fi
 
 #main functionality
-# complete rest of the issues
-
-$dry uptime
+# complete rest of the issuesi
+for ip in $(cat $FILE_PATH)
+do
+	$dry host $ip
+done
 
 $dry uname -a
