@@ -85,25 +85,28 @@ exiter "-f <file path> missed"
 
 else 
 
-hosts $FILE_PATH               
-               
-fi
+hosts $FILE_PATH;
+
+fi;
 
 }
 
 arguments_checker "$@"
 
-#check if dry run set
+
+
+
 if [[ -n $DRY_RUN ]]
 then
-    dry="echo "
-fi
+    dry="echo dry_run "
+
 
 #main functionality
 # complete rest of the issuesi
 for ip in $(cat $FILE_PATH)
 do
-	$dry host $ip
+   $dry host $ip
 done
 
 $dry uname -a
+fi;
