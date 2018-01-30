@@ -18,6 +18,11 @@ logger() {
 printf '\e[1;33m%-6s\e[m\n' "$*"
 }
 
+red_logger() {
+printf '\e[1;31m%-6s\e[m\n' "$*"
+}
+
+
 #error message function
 error() {
 logger "ERROR: $*" >&2
@@ -43,7 +48,8 @@ while [ "$#" -gt 0 ]; do
         #https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html
         --*'='*) shift; set -- "${param%%=*}" "${param#*=}" "$@"; continue
             ;;
-        -f|--file) shift; FILE_PATH="$1"
+        -f|--file) shift; 
+		FILE_PATH="$1";
             ;;
         -d|--dry-run) DRY_RUN=1
             ;;
@@ -60,6 +66,20 @@ done
 if [[ -z "$FILE_PATH" ]];
 then
 exiter "-f <file path> missed"
+
+else 
+
+for ip in $(cat ${FILE_PATH})
+do
+   dns=$(host $ip | awk '{print $5}')
+   echo "for ip: $ip such DNS:"
+     for name in $dns
+     do
+	red_logger ${name%%.}
+     done
+	
+done               
+               
 fi
 
 }
@@ -78,4 +98,3 @@ fi
 $dry uptime
 
 $dry uname -a
-
