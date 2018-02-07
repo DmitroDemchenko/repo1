@@ -12,21 +12,22 @@ printf '\e[1;33m%-6s\e[m\n' "$*"
 
 
 gethost(){
+FILEPATH=$1
+IFS=$';'
 
-if [[ -z "$(<$1)" ]]; then
-	error "file is empty"
-
-else
-
-param="$(<$1)"
-
-for i in $param
+for i in $(cat ${FILEPATH})
 do
-	host $i | awk '{print $5}' | sed 's/^\(.*\).$/\1/'
+	dns=$(host $i | awk '{print $5}')
+	for j in $dns
+	do
+	   echo ${j%%.}
+	done 
 done
 
-fi;
 
 }
 
 gethost $@
+
+
+echo ${FILEPATH}
