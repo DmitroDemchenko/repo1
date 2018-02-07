@@ -1,6 +1,5 @@
 #!/bin/bash
 #helper function
-
 helper() {
     cat <<EOF
 Script for orchestration ssh sessions to remote hosts
